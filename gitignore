@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.ipynb_checkpoints/
+
+# Outputs
+nipd_output/
+out/
+*.png
+*.tiff
+*.tif
+
+# Patient / sequencing data - NEVER commit (IRB / consent restricted)
+data/
+*.vcf
+*.vcf.gz
+*.bam
+*.cram
+*.fastq
+*.fastq.gz
+*.fq.gz
+my_cohort.csv
+Supp_Table*.csv
+Supplementary*.csv
+Supplementary*.xlsx
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
