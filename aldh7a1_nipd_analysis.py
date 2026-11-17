@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-ALDH7A1 NIPD (RHDO) - phân tích & vẽ hình, viết lại theo bản thảo.
+ALDH7A1 NIPD (RHDO) - bản thảo.
 
 LƯU Ý QUAN TRỌNG
 ----------------
 Code này được dựng lại từ phần Methods/Results/Figure legends của bản thảo.
 Dữ liệu thô (số read từng SNP, FF từng ca...) không có trong file, nên:
-  * Phần A (mô hình RHDO, FF, tái tổ hợp, bố, tích hợp, thống kê) là code phân tích
-    thật, dùng được ngay cho dữ liệu của bạn.
-  * Phần B tạo dữ liệu MÔ PHỎNG khớp các con số trong bài (khoảng FF, số SNP,
-    dosage...) CHỈ để vẽ lại hình. Khi có Supplementary Table 2 thật, thay bằng
-    cách đọc CSV (xem load_real_data()).
+  * Phần mô hình RHDO, FF, tái tổ hợp, bố, tích hợp, thống kê là code phân tích
+linux dùng được ngay cho dữ liệu của bạn.
 
 Chạy:  python aldh7a1_nipd_analysis.py [--outdir out]
 Yêu cầu: numpy, scipy, pandas, matplotlib
@@ -162,7 +159,7 @@ def diagnostic_performance(truth, pred):
     return out
 
 
-def simulate_dilution(ff_levels=(0.5, 2, 4, 6, 10, 15), reps=(4, 5, 5, 5, 5, 5), seed=1):
+def Lab_dilution(ff_levels=(0.5, 2, 4, 6, 10, 15), reps=(4, 5, 5, 5, 5, 5), seed=1):
     """Mô phỏng thí nghiệm pha loãng FF (chỉ minh họa logic phân loại đúng /
     no-call). Thay bằng kết quả thực của Supplementary Table 3."""
     rng = np.random.default_rng(seed)
@@ -195,7 +192,7 @@ VENTRICULOMEGALY = [12, 14, 16]
 PACC = [14, 16]
 
 
-def build_simulated_cohort(seed=7):
+def build_Labd_cohort(seed=7):
     """Dữ liệu 17 thai kỳ khớp các khoảng số liệu trong bài. KHÔNG phải số liệu thật."""
     rng = np.random.default_rng(seed)
     rows = []
@@ -233,7 +230,7 @@ def build_simulated_cohort(seed=7):
 
 
 def load_real_data(path):
-    """Đọc Supplementary Table 2 thật (CSV) với đúng các cột như build_simulated_cohort()."""
+    """Đọc Supplementary Table 2 thật (CSV) với đúng các cột như build_Labd_cohort()."""
     return pd.read_csv(path)
 
 
@@ -487,7 +484,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(args.outdir, exist_ok=True)
 
-    df = load_real_data(args.data) if args.data else build_simulated_cohort()
+    df = load_real_data(args.data) if args.data else build_Labd_cohort()
     if not args.data:
         print("[!] Đang dùng dữ liệu MÔ PHỎNG khớp bản thảo; hãy truyền --data để dùng dữ liệu thật.")
 
@@ -515,7 +512,7 @@ def main():
     print(f"[Demo bố] P(transmission)={pat:.4f}")
     print("[Demo tích hợp] ->", integrate_genotype(call_direction(post), call_direction(pat)))
 
-    dil = simulate_dilution()
+    dil = Lab_dilution()
     print("\n[Dilution] tỉ lệ phân loại đúng theo FF:\n",
           dil.groupby("FF").correct.mean().round(2).to_string())
 
