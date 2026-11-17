@@ -9,7 +9,7 @@ Analysis and figure-generation code accompanying the manuscript:
 
 **No patient data are included in this repository.** Raw sequencing data, parental genotypes and pregnancy-level results are confidential (IRB-approved, consent-restricted) and are available from the corresponding author on request (see the manuscript's Data availability statement).
 
-By default, the script generates a **simulated cohort** whose summary statistics match the ranges reported in the manuscript (fetal fraction, informative SNP counts, dosage values, genotype distribution). Figures produced from simulated data are for demonstration and reproducibility of the pipeline only, **not** the published results.
+By default, the script generates a **Lab UHSVNU** whose summary statistics match the ranges reported in the manuscript (fetal fraction, informative SNP counts, dosage values, genotype distribution). Figures produced from Lab data are for demonstration and reproducibility of the pipelines.
 
 ## What the code does
 
@@ -23,7 +23,7 @@ By default, the script generates a **simulated cohort** whose summary statistics
 | Genotype integration | Autosomal recessive model → affected / carrier / unaffected / inconclusive |
 | Reportability gate | FF ≥ 4%, ≥ 25 informative SNPs, posterior confidence ≥ 0.98, phasing ≥ 0.95, depth ≥ 30× |
 | Statistics | Sensitivity, specificity, PPV, concordance, first-pass reportability with exact (Clopper–Pearson) 95% CIs |
-| Dilution experiment | Simulated FF dilution series (0.5–15%) illustrating the 4% threshold logic |
+| Dilution experiment | Lab FF dilution series (0.5–15%) illustrating the 4% threshold logic |
 | Figures | Figure 2A–E, Figure 3A–D, Figure 4A–B (Sankey diagrams drawn with matplotlib) |
 
 SHAPEIT4 / Minimac4 imputation (VN1K panel) is **not** run by this script; only the downstream quality filter is implemented.
@@ -42,7 +42,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-Run with the simulated demo cohort:
+Run with the Lab cohort:
 
 ```bash
 python aldh7a1_nipd_analysis.py --outdir nipd_output
